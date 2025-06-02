@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f7f7f7;
+      min-height: 100vh;
+      min-width: 100vw;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    main {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .login-container {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px #0001;
+      max-width: 340px;
+      width: 100%;
+      padding: 32px 24px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .login-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 18px;
+      color: #222;
+      letter-spacing: 0.5px;
+    }
+    .login-label {
+      font-size: 1em;
+      color: #222;
+      margin-bottom: 3px;
+      font-weight: 500;
+      display: block;
+      width: 100%;
+    }
+    .login-input {
+      width: 100%;
+      padding: 9px 12px;
+      margin-bottom: 14px;
+      border-radius: 5px;
+      border: 1px solid #bbb;
+      font-size: 1em;
+      background: #fafafa;
+      transition: border 0.2s;
+      box-sizing: border-box;
+    }
+    .login-input:focus {
+      border: 1.5px solid #888;
+      outline: none;
+      background: #fff;
+    }
+    .input-group {
+      position: relative;
+      width: 100%;
+    }
+    .toggle-pass-btn {
+      background: none;
+      border: none;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #888;
+      font-size: 1.2em;
+      padding: 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-row {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .remember-label {
+      display: flex;
+      align-items: center;
+      font-size: 0.97em;
+      color: #444;
+      cursor: pointer;
+      user-select: none;
+    }
+    .remember-label input[type="checkbox"] {
+      margin-right: 7px;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 11px 0;
+      border-radius: 5px;
+      background: #e0e0e0;
+      color: #222;
+      border: none;
+      font-size: 1.08em;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-top: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-btn:hover {
+      background: #d0d0d0;
+    }
+    #loginError {
+      color: #c00;
+      display: none;
+      margin-top: 8px;
+      margin-bottom: 0;
+      text-align: center;
+      font-size: 0.98em;
+    }
+    #logoutBtn, #loadingMsg, #adminFrame {
+      display: none;
+    }
+    #logoutBtn {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      z-index: 10;
+      padding: 8px 18px;
+      background: #e0e0e0;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #logoutBtn:hover {
+      background: #d0d0d0;
+    }
+    #loadingMsg {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      padding: 10px 24px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px #0001;
+      font-size: 1.1em;
+      color: #333;
+      z-index: 10;
+    }
+    #adminFrame {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100vw;
+      max-height: 100vh;
+      border: none;
+      background: #fff;
+      border-radius: 0;
+      box-shadow: none;
+      margin: 0;
+      z-index: 1;
+    }
+    @media (max-width: 600px) {
+      .login-container { max-width: 98vw; padding: 12px; }
+      #logoutBtn { right: 8px; top: 8px; }
+      #loadingMsg { top: 40px; }
+    }
+    .eye-icon {
+      width: 22px;
+      height: 22px;
+      display: block;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="login-container" id="loginBox">
+      <div class="login-title">Admin Login</div>
+      <form id="loginForm" autocomplete="off">
+        <label class="login-label" for="adminId">User ID</label>
+        <input class="login-input" name="adminId" id="adminId" type="text" placeholder="Enter user ID" required aria-label="User ID">
+        <label class="login-label" for="adminPass">Password</label>
+        <div class="input-group">
+          <input class="login-input" name="adminPass" type="password" placeholder="Enter password" id="adminPass" required aria-label="Password" style="padding-right:36px;">
+          <button type="button" id="togglePass" class="toggle-pass-btn" tabindex="-1" aria-label="Show/Hide password">
+            <span id="eyeIcon">
+              <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="3" stroke-width="2"/>
+                <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" stroke-width="2"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+        <div class="login-row">
+          <label for="keepMe" class="remember-label">
+            <input type="checkbox" id="keepMe" name="keepMe">
+            Remember
+          </label>
+        </div>
+        <button type="submit" class="login-btn">LOGIN</button>
+      </form>
+      <div id="loginError">Invalid user ID or password</div>
+    </div>
+    <button id="logoutBtn">Logout</button>
+    <div id="loadingMsg">Loading admin panel...</div>
+    <iframe id="adminFrame"></iframe>
+  </main>
+  <script>
+    // SVGs for eye and eye-off
+    const eyeSVG = `<svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="12" cy="12" r="3" stroke-width="2"/>
+      <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" stroke-width="2"/>
+    </svg>`;
+    const eyeOffSVG = `<svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M17.94 17.94A10.06 10.06 0 0 1 12 19c-6 0-10-7-10-7a17.7 17.7 0 0 1 5.06-5.94M1 1l22 22" stroke-width="2"/>
+      <circle cx="12" cy="12" r="3" stroke-width="2"/>
+      <path d="M9.53 9.53A3 3 0 0 1 12 9c1.66 0 3 1.34 3 3 0 .47-.11.91-.29 1.29" stroke-width="2"/>
+    </svg>`;
+
+    // Password visibility toggle
+    document.getElementById('togglePass').onclick = function(e) {
+      e.preventDefault();
+      const pass = document.getElementById('adminPass');
+      const eyeIcon = document.getElementById('eyeIcon');
+      if (pass.type === 'password') {
+        pass.type = 'text';
+        eyeIcon.innerHTML = eyeOffSVG;
+      } else {
+        pass.type = 'password';
+        eyeIcon.innerHTML = eyeSVG;
+      }
+    };
+
+    // Show/hide panels for lifetime login
+    function showAdminPanel() {
+      document.getElementById('loginBox').style.display = 'none';
+      document.getElementById('adminFrame').style.display = 'block';
+      document.getElementById('logoutBtn').style.display = 'block';
+      document.getElementById('loadingMsg').style.display = 'block';
+      document.getElementById('adminFrame').src = '/admin';
+      document.getElementById('adminFrame').onload = function() {
+        document.getElementById('loadingMsg').style.display = 'none';
+        // Hide the top logout button inside the iframe (if present)
+        try {
+          const iframeDoc = document.getElementById('adminFrame').contentDocument || document.getElementById('adminFrame').contentWindow.document;
+          const topLogout = iframeDoc.querySelector('button, input[type="button"], a[href*="logout"], a:contains("Logout")');
+          if (topLogout && topLogout.textContent.trim().toLowerCase() === 'logout') {
+            topLogout.style.display = 'none';
+          }
+        } catch (e) {}
+      };
+    }
+    function showLoginPanel() {
+      document.getElementById('adminFrame').style.display = 'none';
+      document.getElementById('loginBox').style.display = 'flex';
+      document.getElementById('logoutBtn').style.display = 'none';
+      document.getElementById('loadingMsg').style.display = 'none';
+      document.getElementById('loginForm').reset();
+      document.getElementById('loginError').style.display = 'none';
+      document.getElementById('adminPass').type = 'password';
+      document.getElementById('eyeIcon').innerHTML = eyeSVG;
+      document.getElementById('loginForm').querySelectorAll('input,button').forEach(el => el.disabled = false);
+    }
+
+    // On page load, check for lifetime login
+    if (localStorage.getItem('adminLoggedIn') === '1') {
+      showAdminPanel();
+    } else {
+      showLoginPanel();
+    }
+
+    // Login form
+    document.getElementById('loginForm').onsubmit = function(e) {
+      e.preventDefault();
+      const id = e.target.adminId.value;
+      const pass = e.target.adminPass.value;
+      const keepMe = document.getElementById('keepMe').checked ? '1' : '';
+      fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `user=${encodeURIComponent(id)}&pass=${encodeURIComponent(pass)}&keepMe=${keepMe}`
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          localStorage.setItem('adminLoggedIn', '1');
+          showAdminPanel();
+        } else if (data.blocked) {
+          document.getElementById('loginError').textContent = 'Too many failed attempts. You are blocked.';
+          document.getElementById('loginError').style.display = 'block';
+          document.getElementById('loginForm').querySelectorAll('input,button').forEach(el => el.disabled = true);
+        } else {
+          document.getElementById('loginError').textContent = 'Invalid user ID or password';
+          document.getElementById('loginError').style.display = 'block';
+        }
+      });
+    };
+
+    // Logout button
+    document.getElementById('logoutBtn').onclick = function() {
+      fetch('/logout').then(() => {
+        localStorage.removeItem('adminLoggedIn');
+        showLoginPanel();
+      });
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6fa;
+  margin: 0;
+}
+
+header {
+  background: #23234a;
+  color: #fff;
+  padding: 18px 0 14px 0;
+  text-align: center;
+  font-size: 1.25em;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px #0002;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin: 24px 0;
+}
+
+.sub-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px #0001;
+  padding: 18px 12px 14px 12px;
+  width: 96vw;
+  max-width: 350px;
+  margin-bottom: 10px;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 0.7s forwards;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+}
+.sub-card:hover, .sub-card:focus-within {
+  box-shadow: 0 8px 32px #23234a22;
+  transform: translateY(-2px) scale(1.01);
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.sub-card img {
+  max-width: 80vw;
+  max-height: 40px;
+  margin: 10px auto 14px auto;
+  display: block;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.sub-card b {
+  font-size: 1.13em;
+  margin-bottom: 6px;
+  display: block;
+  letter-spacing: 0.5px;
+}
+
+.plan-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.plan-item {
+  background: #f7f7fa;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 12px 10px 14px 10px;
+  box-shadow: 0 1px 4px #0001;
+  text-align: left;
+  position: relative;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+.plan-item:focus-within, .plan-item:hover {
+  box-shadow: 0 2px 12px #3b3b8f22;
+  border: 1px solid #3b3b8f;
+}
+
+.badge {
+  display: inline-block;
+  background: #ffb300;
+  color: #23234a;
+  font-size: 0.85em;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-bottom: 6px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.plan-label {
+  font-size: 1em;
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.plan-price {
+  color: #3b3b8f;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.buy-btn {
+  background: #3b3b8f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 0;
+  width: 100%;
+  font-size: 1.08em;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  margin-top: 2px;
+  display: block;
+  text-align: center;
+  outline: none;
+  box-shadow: 0 1px 4px #3b3b8f22;
+}
+.buy-btn:hover, .buy-btn:focus-visible {
+  background: #23234a;
+  box-shadow: 0 2px 8px #23234a44;
+}
+
+@media (min-width: 601px) {
+  .grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 28px;
+    justify-content: center;
+  }
+  .sub-card {
+    max-width: 340px;
+    min-width: 220px;
+    padding: 22px 18px 18px 18px;
+  }
+  .sub-card img {
+    max-width: 220px;
+    max-height: 60px;
+  }
+}
+
+@media (max-width: 400px) {
+  .sub-card {
+    padding: 10px 2vw 10px 2vw;
+  }
+  .plan-item {
+    padding: 8px 4px 10px 4px;
+  }
+}

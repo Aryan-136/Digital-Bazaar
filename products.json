@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Youtube Premium",
+    "img": "/Assets/Youtube_Premium.jpg",
+    "plans": [
+      {
+        "label": "1 Month",
+        "price": 80
+      },
+      {
+        "label": "3 Months",
+        "price": 180
+      },
+      {
+        "label": "6 Months",
+        "price": 350
+      },
+      {
+        "label": "12 Months",
+        "price": 600
+      }
+    ],
+    "note": "Family Plan"
+  },
+  {
+    "name": "Youtube Premium Family (6 Users)",
+    "img": "/Assets/Youtube_Premium_Family__6_Users_.jpg",
+    "plans": [
+      {
+        "label": "1 Month",
+        "price": 180
+      }
+    ],
+    "note": "You can add up to 5 Mambers"
+  },
+  {
+    "name": "Netflix (Shared Profile)",
+    "img": "/Assets/Netflix__Shared_Profile_.png",
+    "plans": [
+      {
+        "label": "1 Month",
+        "price": 139
+      },
+      {
+        "label": "3 Months",
+        "price": 349
+      },
+      {
+        "label": "6 Months",
+        "price": 609
+      },
+      {
+        "label": "12 Months",
+        "price": 899
+      }
+    ],
+    "note": "Netflix Profile is Shared"
+  },
+  {
+    "name": "Prime Video 4K UHD",
+    "img": "/Assets/Prime_Video_4K_UHD.png",
+    "plans": [
+      {
+        "label": "1 Month",
+        "price": 69
+      },
+      {
+        "label": "6 Months",
+        "price": 299
+      },
+      {
+        "label": "12 Months",
+        "price": 500
+      }
+    ],
+    "note": "Only for watching movies"
+  },
+  {
+    "name": "Jio Hotstar",
+    "img": "/Assets/Jio_Hotstar.jpg",
+    "plans": [
+      {
+        "label": "1 Month",
+        "price": 149
+      },
+      {
+        "label": "3 Months",
+        "price": 249
+      },
+      {
+        "label": "6 Months",
+        "price": 399
+      },
+      {
+        "label": "12 Months",
+        "price": 699
+      }
+    ],
+    "note": ""
+  },
+  {
+    "name": "Best Selling Combo Plan",
+    "img": "/Assets/Best_Selling_Combo_Plan.jpg",
+    "plans": [
+      {
+        "label": "12 Months",
+        "price": 2999
+      }
+    ],
+    "note": "All are for 1 Year on Your Mail/Number\r\n\r\nNetflix\r\nHotstar\r\nAmazon Prime\r\nZee5\r\nSonyLiv\r\nSpotify (4 Months)"
+  }
+]
